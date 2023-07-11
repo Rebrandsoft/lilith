@@ -13,14 +13,14 @@ export class ArmoryEmbed extends Embed {
     this.data.title = `${character.character} LvL. ${character.level} (${character.class})`;
 
     this.data.thumbnail = {
-      url: this.client.user?.displayAvatarURL() || "",
+      url: this.client.user?.displayAvatarURL(),
     };
 
     const stats = i18n.embeds.ARMORY.STATISTICS_VALUE({
       worldTier: String(character.worldTier + 1),
-      monstersKilled: character.monstersKilled.toLocaleString("en-US"),
-      elitesKilled: character.elitesKilled.toLocaleString("en-US"),
-      goldCollected: character.goldCollected.toLocaleString("en-US"),
+      monstersKilled: character.monstersKilled ? character.monstersKilled.toLocaleString("en-US") : "0",
+      elitesKilled: character.elitesKilled ? character.elitesKilled.toLocaleString("en-US") : "0",
+      goldCollected: character.goldCollected ? character.goldCollected.toLocaleString("en-US") : "0",
     });
 
     this.data.fields = [
@@ -43,20 +43,43 @@ export class ArmoryEmbed extends Embed {
         value: secondsToDhms(character.secondsPlayed) || i18n.misc.NO_PLAYED_TIME(),
         inline: false,
       },
-      {
-        name: underscore(i18n.embeds.ARMORY.EQUIPPED_ITEMS_TITLE()),
-        value:
-          character.equipment.map((item) => `${item.name} (${item.quality_level} ${item.itemtype})`).join("\n") ||
-          i18n.misc.NO_EQUIPPED_ITEMS(),
-      },
-      {
+    ];
+
+    if (character.skills.length)
+      this.data.fields.push({
+        name: underscore(i18n.embeds.ARMORY.SKILLS_TITLE()),
+        value: character.skills.map((skill) => skill.name).join("\n"),
+        inline: false,
+      });
+
+    if (character.equipment.length) {
+      const uniques = character.equipment.filter((item) => item.quality_level === "Unique");
+      if (uniques.length) {
+        this.data.fields.push({
+          name: underscore(i18n.embeds.ARMORY.UNIQUES_TITLE()),
+          value: uniques.map((item) => item.name).join("\n"),
+          inline: false,
+        });
+      }
+    }
+
+    this.data.fields.push({
+      name: underscore(i18n.embeds.ARMORY.MODE_TITLE()),
+      value: character.hardcore ? "Hardcore" : "Softcore",
+    });
+
+    if (character.hardcore) {
+      this.data.fields.push({
         name: underscore(i18n.embeds.ARMORY.STATUS_TITLE()),
         value: character.dead ? "Dead" : "Alive",
-      },
-      {
-        name: underscore(i18n.embeds.ARMORY.MODE_TITLE()),
-        value: character.hardcore ? "Hardcore" : "Softcore",
-      },
-    ];
+      });
+    }
+
+    if (character.clan) {
+      this.data.fields.push({
+        name: underscore(i18n.embeds.ARMORY.CLAN_TITLE()),
+        value: character.clan,
+      });
+    }
   }
 }

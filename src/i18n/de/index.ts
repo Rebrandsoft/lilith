@@ -3,7 +3,7 @@ import type { Translation } from "../i18n-types";
 const de = {
   settings: {
     locale: {
-      SUCCESS: "Die Spracheinstellungen für {username} wurden auf folgende Einstellungen aktualisiert: **{locale}**.",
+      SUCCESS: "Die Spracheinstellungen für Lilith wurden auf folgende Einstellungen aktualisiert: **{locale}**.",
     },
     notifications: {
       NO_PERMISSIONS: "{username} hat keine Berechtigung zum Senden von Nachrichten in diesem {channel}.",
@@ -29,7 +29,7 @@ const de = {
     MULTIPLE_CHARACTERS: "Dieser BattleTag hat mehrere Charaktere. Bitte einen auswählen.",
     PLAYER_CHOICE: "{name} ({characters} Charaktere)",
     NOT_TRACKED_YET: '"{player}" ist aktuell nicht in der Datenbank vorhanden, bestätigen zum Hinzufügen.',
-    PLAYER_IN_QUEUE: "Der Spieler **{player}** befindet sich derzeit in der Warteschlange.",
+    ERROR: 'The player "{player}" is either in the website queue or is in private mode.',
   },
   events: {
     WORLD_BOSS:
@@ -46,9 +46,11 @@ const de = {
       CHARACTER_CREATION_TITLE: "Charaktererstellung",
       LAST_PLAYED_TITLE: "Zuletzt gespielt",
       PLAYED_TIME_TITLE: "Spielzeit",
-      EQUIPPED_ITEMS_TITLE: "Angelegte Gegenstände",
+      UNIQUES_TITLE: "Uniques",
+      SKILLS_TITLE: "Skills",
       STATUS_TITLE: "Status",
       MODE_TITLE: "Modus",
+      CLAN_TITLE: "Clan",
     },
     HELP: {
       TITLE: "Befehle für {username}",
